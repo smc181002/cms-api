@@ -1,0 +1,33 @@
+{
+  "name": "libms-api",
+  "version": "0.1.0",
+  "description": "Library website to access ebooks and search for books in library",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smc181002/libms-api.git"
+  },
+  "author": "smc181002",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.8",
+    "morgan": "^1.10.0",
+    "validator": "^13.6.0"
+  },
+  "bugs": {
+    "url": "https://github.com/smc181002/libms-api/issues"
+  },
+  "homepage": "https://github.com/smc181002/libms-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  }
+}
