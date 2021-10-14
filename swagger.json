@@ -1,0 +1,181 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "College Management System API Documentation",
+    "version": "v1"
+  },
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Everything about auth"
+    },
+    {
+      "name": "library",
+      "description": "Everything about library"
+    }
+  ],
+  "paths": {
+    "/signup": {
+      "post": {
+        "summary": "Create a user",
+        "operationId": "createUser",
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "createUser",
+            "required": true,
+            "schema": {
+              "type":"object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type":"string"
+                },
+                "password": {
+                  "type":"string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "Email already exists or Invalid Email"
+          }
+        }
+      }
+    },
+
+    "/login": {
+      "post": {
+        "summary": "User Login",
+        "operationId": "userLogin",
+        "tags": [
+          "auth"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userLogin",
+            "required": true,
+            "schema": {
+              "type":"object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type":"string"
+                },
+                "password": {
+                  "type":"string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Logged in"
+          },
+          "400": {
+            "description": "Invalid Email or password on authentication"
+          }
+        }
+      }
+    },
+
+    "/library/addNewBook": {
+      "post": {
+        "summary": "User Login",
+        "operationId": "userLogin",
+        "tags": [
+          "library"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userLogin",
+            "required": true,
+            "schema": {
+              "type":"object",
+              "required": [
+                "type",
+                "title",
+                "author",
+                "publication",
+                "coverPic"
+              ],
+              "properties": {
+                "type": {
+                  "type":"string"
+                },
+                "title": {
+                  "type":"string"
+                },
+                "author": {
+                  "type":"string"
+                },
+                "publication": {
+                  "type":"string"
+                },
+                "coverPic": {
+                  "type":"string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "New Book added"
+          },
+          "403": {
+            "description": "User not authenticated or doesnt have enough priviliges"
+          },
+          "400": {
+            "description": "Bad request sent"
+          }
+        }
+      }
+    },
+
+    "/library/listBooks": {
+      "get": {
+        "summary": "list paginated book list",
+        "operationId": "allBooks",
+        "tags": [
+          "library"
+        ],
+        "parameters": [
+          {
+           "in": "path",
+           "name": "page",
+           "type": "string",
+           "required": true,
+           "description": "Enter the page number want to get the DB"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list of pages"
+          },
+          "403": {
+            "description": "User not authenticated or doesnt have enough priviliges"
+          }
+        }
+      }
+    }
+  }
+}

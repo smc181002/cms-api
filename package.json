@@ -1,7 +1,7 @@
 {
-  "name": "libms-api",
+  "name": "cms-api",
   "version": "0.1.0",
-  "description": "Library website to access ebooks and search for books in library",
+  "description": "College management API for Library management system + Hostel management system + Online Tutorials.",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -16,13 +16,16 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.8",
+    "mongoose-paginate-v2": "^1.4.2",
     "morgan": "^1.10.0",
-    "validator": "^13.6.0"
+    "swagger-ui-express": "^4.1.6",
+    "validator": "^13.6.0",
+    "yamljs": "^0.3.0"
   },
   "bugs": {
-    "url": "https://github.com/smc181002/libms-api/issues"
+    "url": "https://github.com/smc181002/cms-api/issues"
   },
-  "homepage": "https://github.com/smc181002/libms-api#readme",
+  "homepage": "https://github.com/smc181002/cms-api#readme",
   "devDependencies": {
     "nodemon": "^2.0.13"
   },
