@@ -27,10 +27,13 @@
   },
   "homepage": "https://github.com/smc181002/cms-api#readme",
   "devDependencies": {
+    "leasot": "^12.0.0",
     "nodemon": "^2.0.13"
   },
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "todo": "leasot -x '**/*.js' --ignore 'node_modules'",
+    "todo-ci": "leasot -x --reporter markdown '**/*.js' --ignore 'node_modules' > TODOS.md"
   }
 }

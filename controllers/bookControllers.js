@@ -17,7 +17,12 @@ module.exports.addNewBook = async (req, res) => {
 
 module.exports.listBooks = async (req, res) => {
   try {
-    const books = await Book.paginate({}, {limit: 1, page: req.query.page || 1});
+    let books;
+    // FIXME: add filters using query params for the type of book
+    if (req.query.type !== '') {
+      books = await Book.paginate({type: 'book'}, {limit: 5, page: req.query.page || 1});
+    }
+    books = await Book.paginate({}, {limit: 5, page: req.query.page || 1});
     res.status(200).json(books);
   } catch(err) {
     // bad request status code
