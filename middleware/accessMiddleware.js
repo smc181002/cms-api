@@ -20,6 +20,7 @@ const verifyUserRoleAccess = (req, res, next, role, errorMsg) => {
       }
     });
   } else {
+    console.log('stes');
     res.status(403).json({loggedIn: false});
   }
 }

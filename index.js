@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
+const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const yaml = require('yamljs');
 
@@ -19,11 +20,12 @@ const app = express();
  */
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({origin: ['http://localhost:3000', 'http://localhost:3001', 'https://localhost'], preflightContinue: true, credentials: true, methods: ['GET', 'POST', 'PUT', 'DELETE']}));
 app.use(morgan("common"));
 
 const dbUri = process.env.DB_URL || 'mongodb://localhost:27017/slms';
 mongoose.connect(dbUri)
-  .then((_) => app.listen(3000, () => console.log("Server Running on port 3000")))
+  .then((_) => app.listen(process.env.PORT || 3000, () => console.log("Server Running on port 3000")))
   .catch(err => console.log(err));
 
 app.get("*", checkUser);

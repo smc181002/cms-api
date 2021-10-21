@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports.requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
+  console.log(req);
   if (token) {
     jwt.verify(token, 'itlab secret', (err, tokenDecoded) => {
       if (err) {
@@ -14,6 +15,7 @@ module.exports.requireAuth = (req, res, next) => {
       }
     });
   } else {
+        console.log('asdfasd');
     res.status(403).json({loggedIn: false});
   }
 }

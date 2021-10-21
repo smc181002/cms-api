@@ -52,12 +52,14 @@ module.exports.login = async (req, res) => {
   try {
     const user = await User.login(email, password);
     const token = createToken(user._id);
-    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000, secure: true });
     res.status(200).json({ user: user._id });
   } 
   catch (err) {
     const errors = handleErrors(err);
     // bad request status code
+    console.log(req.body);
+    console.log(err);
     res.status(400).json({ errors });
   }
 }
