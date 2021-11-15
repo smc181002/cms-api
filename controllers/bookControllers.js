@@ -30,3 +30,15 @@ module.exports.listBooks = async (req, res) => {
     res.status(400).json({ error: "error occured" });
   }
 }
+
+module.exports.deleteBook = async (req, res) => {
+  try {
+    let book;
+    book = await Book.findByIdAndDelete(req.params.id)
+    res.status(200).json(book);
+  } catch(err) {
+    // bad request status code
+    console.log(err);
+    res.status(400).json({ error: "error occured" });
+  }
+}
