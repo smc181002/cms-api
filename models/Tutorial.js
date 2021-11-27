@@ -6,7 +6,7 @@ const tutorialSchema = new mongoose.Schema({
   title: String,
   userid: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "user"
   }
 });
 

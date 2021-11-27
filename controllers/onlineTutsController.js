@@ -21,22 +21,8 @@ module.exports.addNewPage = async (req, res) => {
 module.exports.listPages = async (req, res) => {
   try {
     let tutorials;
-    // TODO: get content for the current user
-    if (req.query.user == "current") {
-      tutorials = await Tutorial.paginate({userid: res.locals.user._id}, {limit: 5, page: req.query.page || 1});
-    } else {
-      tutorials = await Tutorial.paginate({limit: 5, page: req.query.page || 1});
+    tutorials = await Tutorial.paginate({}, {populate: {path: 'userid', select: ['email']}, lean: true, limit: 5, page: req.query.page || 1});
 
-      // tutorials.docs = tutorials.docs.map(async (tutorial) => {
-        // let user = await User.findById(tutorial.userid)
-        // let email = user.email
-        // return {...tutorial, email}
-      // })
-//
-      // console.log(tutorials.docs)
-
-      // console.log(tutorials.docs[0]['userid.email'])
-    }
     res.status(200).json(tutorials);
   } catch (err) {
     // bad request status code
@@ -48,9 +34,9 @@ module.exports.listPages = async (req, res) => {
 module.exports.listPage = async (req, res) => {
   try {
     // new resource created status code
-    let tutorials = await Tutorial.findById(req.params.id)
+    let tutorials = await Tutorial.findById(req.params.id).populate({path: 'userid', select: 'email'})
     console.log(tutorials);
-    res.status(200).json({...tutorials, });
+    res.status(200).json(tutorials);
   } catch (err) {
     // bad request status code
     console.log(err);

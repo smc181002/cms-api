@@ -3,10 +3,9 @@ const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-  userId: {
+  name: {
     type: String,
     required: true,
-    unique: true
   },
   email: {
     type: String,
@@ -27,7 +26,13 @@ const userSchema = new mongoose.Schema({
       'faculty',
       'student',
     ]
-  }
+  },
+  tutorials: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "tutorial"
+    }
+  ]
 })
 
 // encrypt the password before saving it to the database
