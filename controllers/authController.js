@@ -53,7 +53,7 @@ module.exports.login = async (req, res) => {
     const user = await User.login(email, password);
     const token = createToken(user._id);
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000, sameSite: 'None', secure: true});
-    res.cookie('user', `${user.email}-${user.role}`, { maxAge: maxAge * 1000, sameSite: 'None', secure: true});
+    res.cookie('user', `${user.name}-${user.role}`, { maxAge: maxAge * 1000, sameSite: 'None', secure: true});
     res.status(200).json({ user: user._id });
   } 
   catch (err) {
@@ -68,4 +68,5 @@ module.exports.login = async (req, res) => {
 module.exports.logout = (_, res) => {
   res.cookie('jwt', '', {maxAge: 1});
   res.cookie('user', '', {maxAge: 1});
+  res.status(200).json({loggedOut: true})
 }

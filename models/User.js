@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -32,7 +33,11 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "tutorial"
     }
-  ]
+  ],
+  hostelRoom: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "hostelRoom"
+  },
 })
 
 // encrypt the password before saving it to the database
@@ -56,6 +61,7 @@ userSchema.statics.login = async function(email, password) {
 
 }
 
+userSchema.plugin(mongoosePaginate);
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;

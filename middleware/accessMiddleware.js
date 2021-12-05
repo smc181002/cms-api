@@ -32,3 +32,11 @@ module.exports.isAdmin = (req, res, next) => {
 module.exports.isLibrarian = (req, res, next) => {
   verifyUserRoleAccess(req, res, next, ['admin', 'librarian'], {error: "Access Denied. User not Admin or Librarian"})
 }
+
+module.exports.isFaculty = (req, res, next) => {
+  verifyUserRoleAccess(req, res, next, ['admin', 'faculty'], {error: "Access Denied. User not Admin or Librarian"})
+}
+
+module.exports.isStudentOnly = (req, res, next) => {
+  verifyUserRoleAccess(req, res, next, ['student'], {error: "Access Denied. User not Student"})
+}

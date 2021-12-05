@@ -10,7 +10,7 @@ const swaggerDocument = yaml.load('./swagger.yaml');
 require('dotenv').config()
 
 // Importing routes 
-const {authRoutes, bookRoutes, onlineTutsRoutes, miscRoutes} = require('./routes');
+const {authRoutes, bookRoutes, onlineTutsRoutes, miscRoutes, adminRoutes, hostelRoutes} = require('./routes');
 
 // Importing custom authentication and authorization middlewares
 const {requireAuth, checkUser} = require('./middleware/authMiddleware.js');
@@ -54,7 +54,7 @@ app.use(morgan("common")); // Apache2 style logging
  */
 const dbUri = process.env.DB_URL || 'mongodb://localhost:27017/slms';
 mongoose.connect(dbUri)
-  .then((_) => app.listen(process.env.PORT || 3000, () => console.log("Server Running on port 3000")))
+  .then((_) => app.listen(process.env.PORT || 3001, () => console.log("Server Running on port 3000")))
   .catch(err => console.log(err));
 
 /**
@@ -68,7 +68,11 @@ app.use("/api", authRoutes);
 // library API
 app.use("/api/library", bookRoutes);
 app.use("/api/tutorials", onlineTutsRoutes);
+app.use("/api/admin", checkUser, adminRoutes);
+// app.use("/api/admin", requireAuth, isAdmin, adminRoutes);
 app.use("/api/misc", miscRoutes);
+app.use("/api/hostel", hostelRoutes);
+// app.use("/api/hostel", hostelRoutes);
 
 // dummy routes
 app.get("/admin", requireAuth, isAdmin, (_, res) => res.json({user: res.locals.user.email}))

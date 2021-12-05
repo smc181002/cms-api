@@ -8,6 +8,12 @@ tags:
     description: Everything about auth
   - name: library
     description: Everything about library
+  - name: tutorial
+    description: Everything about online tutorials
+  - name: admin
+    description: Everything about admin only actions
+  - name: hostel
+    description: Everything about hostel
 paths:
   /signup:
     post:
@@ -110,5 +116,199 @@ paths:
       responses:
         '200':
           description: list of pages
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /library/deleteBook:
+    delete:
+      summary: Delete book from Library
+      operationId: userLogin
+      tags:
+        - library
+      parameters:
+        - in: path
+          name: deleteBook
+          required: true
+          schema:
+            id: string
+      responses:
+        '200':
+          description: Book Deleted
+        '400':
+          description: Bad request sent
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /tutorials/listPages:
+    get:
+      summary: list paginated tutorials
+      operationId: allTutorials
+      tags:
+        - tutorial
+      parameters:
+        - in: path
+          name: page
+          type: string
+          required: true
+          description: Enter the page number want to get the DB
+      responses:
+        '200':
+          description: list of pages
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /tutorials/listPage:
+    get:
+      summary: list paginated tutorials
+      operationId: eachTutorial
+      tags:
+        - tutorial
+      parameters:
+        - in: path
+          name: page
+          type: string
+          required: true
+          description: Enter the page number want to get the DB
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Enter the id of the page
+      responses:
+        '200':
+          description: content of selected page
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /tutorials/addNewPage:
+    post:
+      summary: create new tutorial
+      operationId: addNewPage
+      tags:
+        - tutorial
+      parameters:
+        - in: body
+          name: newPage
+          required: true
+          schema:
+            type: object
+            required:
+              - title
+              - data
+            properties:
+              title:
+                type: string
+              data:
+                type: string
+      responses:
+        '201':
+          description: Create new page
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /admin/addUser:
+    post:
+      summary: create new user
+      operationId: addUser
+      tags:
+        - admin
+      parameters:
+        - in: body
+          name: newPage
+          required: true
+          schema:
+            type: object
+            required:
+              - name
+              - email
+              - password
+              - role
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              role:
+                type: string
+      responses:
+        '201':
+          description: Create new role
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /admin/listUsers:
+    get:
+      summary: list paginated users
+      operationId: listUsers
+      tags:
+        - admin
+      responses:
+        '200':
+          description: List paginated users
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /admin/hostel/listRooms:
+    get:
+      summary: list paginated HostelRooms
+      operationId: listHostelRooms
+      tags:
+        - admin
+      responses:
+        '200':
+          description: List Hostel rooms
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /admin/hostel/addRoom:
+    post:
+      summary: add new room data
+      operationId: addHostelRoom
+      tags:
+        - admin
+      parameters:
+        - in: body
+          name: newRoom
+          required: true
+          schema:
+            type: object
+            required:
+              - roomNo
+              - block
+            properties:
+              roomNo:
+                type: string
+              block:
+                type: string
+      responses:
+        '200':
+          description: list paginated Hostel Requests
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /admin/hostel/allocateRoom:
+    post:
+      summary: add new room data
+      operationId: allocateRoom
+      tags:
+        - admin
+      parameters:
+        - in: body
+          name: allocateRoom
+          required: true
+          schema:
+            type: object
+            required:
+              - userid
+            properties:
+              userid:
+                type: string
+      responses:
+        '200':
+          description: list paginated Hostel Requests
+        '403':
+          description: User not authenticated or doesnt have enough priviliges
+  /hostel/myRoom:
+    get:
+      summary: list info of my hostel
+      operationId: listMyHostelRoom
+      tags:
+        - hostel
+      responses:
+        '200':
+          description: List Hostel rooms
         '403':
           description: User not authenticated or doesnt have enough priviliges
